@@ -32,6 +32,7 @@ tool while painting. They are meant to synergize with traditional tools and the 
 * **History**: Not every image will turn out a masterpiece. Preview results and browse previous generations and prompts at any time.
 * **Strong Defaults**: Versatile default style presets allow for a simple UI which covers many scenarios.
 * **Customization**: Create your own presets - select a Stable Diffusion checkpoint, add LoRA, tweak samplers and more.
+* **Safety Checker**: Any preset with the word 'Safe' in the name will return a black image if NSFW content is detected
 
 ## <a name="installation"></a> Getting Started
 
