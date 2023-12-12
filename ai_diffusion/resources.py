@@ -54,6 +54,13 @@ required_custom_nodes = [
             "ETN_ApplyMaskToImage",
         ],
     ),
+    CustomNode(
+        "Safety Checker",
+        "ComfyUI-safety-checker",
+        "https://github.com/timogiles/ComfyUI-safety-checker",
+        "f4fd0933df1cba0a1233318b49b8a2dbfe105aba",
+        ["Safety Checker"],
+    ),
 ]
 
 

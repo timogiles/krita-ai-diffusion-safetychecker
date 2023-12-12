@@ -454,6 +454,10 @@ def generate(
     sampler_params = _sampler_params(style, live=live)
     batch = 1 if live.is_active else batch
 
+    ### safety checker can only handle one image
+    batch = 1 if "Safe" in style.name else batch
+    ###
+
     w = ComfyWorkflow(comfy.nodes_inputs)
     model, clip, vae = load_model_with_lora(w, comfy, style, cond.prompt, is_live=live.is_active)
     latent = w.empty_latent_image(extent.initial.width, extent.initial.height, batch)
@@ -462,6 +466,13 @@ def generate(
     if extent.requires_upscale:
         out_latent = upscale(w, style, out_latent, extent, positive, negative, model, vae, comfy)
     out_image = w.vae_decode(vae, out_latent)
+    ### adding safety checker 
+    # out_image = w.safety_checker(0.5,out_image)
+    if "Safe" in style.name:
+        #w.save_image(out_image, "unsafe")
+        out_image = w.add("Safety Checker", 1, sensitivity=0.9,images=out_image)
+        #w.save_image(out_image, "safe")
+    ###
     if extent.requires_downscale or extent.is_incompatible:
         out_image = w.scale_image(out_image, extent.target)
     w.send_image(out_image)
